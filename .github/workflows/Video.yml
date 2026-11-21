@@ -60,10 +60,10 @@ jobs:
         run: |
           python upload_youtube.py
 
-      - name: Check output
+      - name: Verify generated files
         run: |
           ls -lh output
-          du -sh output
+          find output -type f
 
       - name: Archive Outputs
         uses: actions/upload-artifact@v4
