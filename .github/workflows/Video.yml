@@ -30,7 +30,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install openai pytrends requests moviepy gtts
+          pip install openai
+          pip install pytrends
+          pip install requests
+          pip install moviepy
+          pip install gtts
+          pip install google-api-python-client
+          pip install google-auth
+          pip install google-auth-oauthlib
+          pip install google-auth-httplib2
 
       - name: Get Trending Topics
         run: |
