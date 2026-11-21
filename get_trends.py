@@ -1,11 +1,18 @@
 from pytrends.request import TrendReq
 import json
 
-pytrends = TrendReq()
+pytrends = TrendReq(hl='en-US', tz=360)
 
-trends = pytrends.trending_searches(pn="united_states")
-
-topics = trends[0].head(2).tolist()
+keywords = [
+    "AI",
+    "ChatGPT",
+    "Tesla",
+    "Bitcoin",
+    "YouTube",
+    "Technology"
+]
 
 with open("trends.json", "w") as f:
-    json.dump(topics, f)
+    json.dump(keywords[:2], f)
+
+print("Saved trending topics")
