@@ -1,11 +1,11 @@
-from moviepy import ColorClip
+from moviepy.video.VideoClip import ColorClip
 import os
 
 os.makedirs("output", exist_ok=True)
 
 video = ColorClip(
     size=(1080, 1920),
-    color=(0, 100, 255),
+    color=(0, 0, 255),
     duration=10
 )
 
@@ -14,4 +14,4 @@ video.write_videofile(
     fps=24
 )
 
-print("MP4 created successfully")
+print("Video created successfully")
