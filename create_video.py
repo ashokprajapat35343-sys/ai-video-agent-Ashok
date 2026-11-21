@@ -1,11 +1,17 @@
-from moviepy import *
+from moviepy import ColorClip
+import os
 
-# Example placeholder video generation
+os.makedirs("output", exist_ok=True)
 
-# Replace with:
-# - Runway API
-# - Pika API
-# - Canva API
-# - Stock background clips
+video = ColorClip(
+    size=(1080, 1920),
+    color=(0, 0, 255),
+    duration=10
+)
 
-print("Generate shorts here")
+video.write_videofile(
+    "output/test_short.mp4",
+    fps=24
+)
+
+print("Video created")
