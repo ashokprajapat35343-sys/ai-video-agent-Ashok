@@ -34,23 +34,23 @@ jobs:
 
       - name: Get Trending Topics
         run: |
-          python scripts/get_trends.py
+          python get_trends.py
 
       - name: Generate Video Scripts
         run: |
-          python scripts/generate_script.py
+          python generate_script.py
 
       - name: Create Voiceovers
         run: |
-          python scripts/generate_voice.py
+          python generate_voice.py
 
       - name: Generate Shorts Videos
         run: |
-          python scripts/create_video.py
+          python create_video.py
 
       - name: Upload to YouTube
         run: |
-          python scripts/upload_youtube.py
+          python upload_youtube.py
 
       - name: Archive Outputs
         uses: actions/upload-artifact@v4
