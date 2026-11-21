@@ -1,6 +1,10 @@
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
+import os
 
-# Upload generated MP4 files using YouTube Data API
+video_file = "output/test_short.mp4"
 
-print("Upload video")
+if os.path.exists(video_file):
+    print(f"Found video: {video_file}")
+else:
+    raise FileNotFoundError(video_file)
+
+print("Ready for YouTube upload")
