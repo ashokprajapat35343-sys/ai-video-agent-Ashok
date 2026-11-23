@@ -2,22 +2,24 @@ from gtts import gTTS
 import json
 import os
 
-if not os.path.exists("scripts.json"):
-    raise FileNotFoundError(
-        "scripts.json was not created"
-    )
+os.makedirs("audio", exist_ok=True)
 
 with open("scripts.json", "r") as f:
     data = json.load(f)
 
-os.makedirs("audio", exist_ok=True)
+print("Scripts loaded:", len(data))
 
 for item in data:
 
-    filename = (
-        item["topic"]
-        .replace(" ", "_")
-        .replace("/", "_")
-    )
+    topic = item["topic"].replace(" ", "_")
 
-    tts = gTTS(item["script"])
+    filename = f"audio/{topic}.mp3"
+
+    print("Creating:", filename)
+
+    tts = gTTS(text=item["script"], lang="en")
+
+    tts.save(filename)
+
+print("Audio generated successfully")
+print("Files:", os.listdir("audio"))
