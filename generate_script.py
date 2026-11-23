@@ -1,25 +1,42 @@
 import json
+import os
+from openai import OpenAI
 
-topics = ["AI News", "Latest Tech"]
+client = OpenAI(
+    api_key=os.environ["OPENAI_API_KEY"]
+)
 
-scripts = []
+topics = json.load(open("trends.json"))
+
+result = []
 
 for topic in topics:
-    scripts.append({
-        "topic": topic,
-        "script": f"""
-Hook:
-Did you know this about {topic}?
 
-Main:
-Here are the biggest updates today.
+    prompt = f"""
+Create a viral 60-second YouTube Shorts script.
 
-CTA:
-Follow for more tech news.
+Topic:
+{topic}
+
+Provide:
+1. Hook
+2. Main points
+3. CTA
 """
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role":"user","content":prompt}
+        ]
+    )
+
+    result.append({
+        "topic": topic,
+        "script": response.choices[0].message.content
     })
 
-with open("scripts.json", "w") as f:
-    json.dump(scripts, f, indent=2)
+with open("scripts.json","w") as f:
+    json.dump(result,f,indent=2)
 
 print("Scripts generated")
