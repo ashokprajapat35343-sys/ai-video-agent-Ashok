@@ -7,5 +7,13 @@ os.makedirs("audio", exist_ok=True)
 data = json.load(open("scripts.json"))
 
 for item in data:
+
+    topic = item["topic"].replace(" ","_")
+
     tts = gTTS(item["script"])
-    tts.save(f"audio/{item['topic']}.mp3")
+
+    tts.save(
+        f"audio/{topic}.mp3"
+    )
+
+print("Audio generated")
