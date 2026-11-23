@@ -1,8 +1,25 @@
-from moviepy import VideoFileClip, AudioFileClip
+import os
+from moviepy import ColorClip, AudioFileClip
 
-video = VideoFileClip("clips/trending.mp4")
+os.makedirs("output", exist_ok=True)
 
-audio = AudioFileClip("audio/Artificial_Intelligence.mp3")
+audio_files = [
+    f for f in os.listdir("audio")
+    if f.endswith(".mp3")
+]
+
+if not audio_files:
+    raise Exception("No audio files found")
+
+audio = AudioFileClip(
+    f"audio/{audio_files[0]}"
+)
+
+video = ColorClip(
+    size=(1080, 1920),
+    color=(20, 20, 20),
+    duration=audio.duration
+)
 
 video = video.with_audio(audio)
 
