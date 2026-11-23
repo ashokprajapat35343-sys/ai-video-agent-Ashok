@@ -1,11 +1,12 @@
-from moviepy import ImageClip
+from moviepy.video.VideoClip import ColorClip
 import os
 
 os.makedirs("output", exist_ok=True)
 
-video = (
-    ImageClip("background.jpg")
-    .with_duration(10)
+video = ColorClip(
+    size=(1080, 1920),
+    color=(50, 50, 50),
+    duration=10
 )
 
 video.write_videofile(
