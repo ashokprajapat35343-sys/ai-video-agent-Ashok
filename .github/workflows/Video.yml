@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
       YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
       YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
@@ -30,11 +29,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install openai
-          pip install pytrends
-          pip install requests
+          pip install google-generativeai
           pip install moviepy
           pip install gtts
+          pip install pytrends
+          pip install requests
           pip install google-api-python-client
           pip install google-auth
           pip install google-auth-oauthlib
@@ -45,6 +44,8 @@ jobs:
           python get_trends.py
 
       - name: Generate Video Scripts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python generate_script.py
 
