@@ -1,42 +1,40 @@
 import json
 import os
-from openai import OpenAI
+import google.generativeai as genai
 
-client = OpenAI(
-    api_key=os.environ["OPENAI_API_KEY"]
+genai.configure(
+    api_key=os.environ["GEMINI_API_KEY"]
 )
+
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 topics = json.load(open("trends.json"))
 
-result = []
+scripts = []
 
 for topic in topics:
 
     prompt = f"""
-Create a viral 60-second YouTube Shorts script.
+Create a viral YouTube Shorts script.
 
-Topic:
-{topic}
+Topic: {topic}
 
-Provide:
+Length: 45-60 seconds.
+
+Include:
 1. Hook
-2. Main points
-3. CTA
+2. Key points
+3. Call to action
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role":"user","content":prompt}
-        ]
-    )
+    response = model.generate_content(prompt)
 
-    result.append({
+    scripts.append({
         "topic": topic,
-        "script": response.choices[0].message.content
+        "script": response.text
     })
 
-with open("scripts.json","w") as f:
-    json.dump(result,f,indent=2)
+with open("scripts.json", "w") as f:
+    json.dump(scripts, f, indent=2)
 
 print("Scripts generated")
